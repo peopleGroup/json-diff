@@ -14,13 +14,15 @@ func consumer(rc chan RequestData, wg *sync.WaitGroup) {
 
 		liveResponse, err := callAPI(request.Endpoints.Live, request.RequestParams)
 		if err != nil {
-			writeJSONStringToFile("./live/"+someUniqueFileName, liveResponse)
+			fmt.Println("[error]: ", err)
 		}
+		writeJSONStringToFile("./live/"+someUniqueFileName, liveResponse)
 		localResponse, err := callAPI(request.Endpoints.Local, request.RequestParams)
 		if err != nil {
-			writeJSONStringToFile("./local/"+someUniqueFileName, localResponse)
+			fmt.Println("[error]: ", err)
 		}
-
+		writeJSONStringToFile("./local/"+someUniqueFileName, localResponse)
+		
 		wg.Done()
 	}
 }
